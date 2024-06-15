@@ -18,7 +18,7 @@ class NotesPage extends StatefulWidget {
 class _NotesPageState extends State<NotesPage> {
   //ФУНКЦИИ CRUD - CREATE READ UPDATE DELETE
 
-  //создание текс конроллера (поле ввода)
+  //создание текс контроллера  (поле ввода)
   // String formatter = DateFormat('Hm').format(now); // 28/03/2020
 
   final textController = TextEditingController();
@@ -32,7 +32,7 @@ class _NotesPageState extends State<NotesPage> {
 
   //функция создание заметки
   void createNote() {
-    //предварительная отчиста конроллера ввода
+    //предварительная очистка контроллера ввода
     textController.clear();
 
     //виджет диалогового окна
@@ -68,7 +68,7 @@ class _NotesPageState extends State<NotesPage> {
               //добавление в базу данных значение textController.text то что ввел пользователь
 
               context.read<NoteDatabase>().addNote(textController.text);
-              //повторная отчиста конроллера
+              //повторная очистка контроллера
               textController.clear();
               //событие Navigator передаём context вернёмся на главную страницу
               Navigator.pop(context);
@@ -186,19 +186,18 @@ class _NotesPageState extends State<NotesPage> {
 
     //получение списка заметок
     List<Note> currentNotes = noteDatabase.currentNotes;
-    // final DatatimeNote = noteDatabase.currentNotes;
     //возврощяем виджет Scaffold
     return Scaffold(
-      //вверхняя часть экрна приложения
+      //верхняя часть экрана приложения
       appBar: AppBar(
-        // нулевая позиция
+        //нулевая позиция
         elevation: 0,
-        //опредиоение цвета фона AppBar
+        //определение цвета фона AppBar
         backgroundColor: Colors.transparent,
         //определение темы виджета
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      //опредиоение цвета фона Scaffold
+      //определение цвета фона Scaffold
       backgroundColor: Theme.of(context).colorScheme.background,
       //добавление кнопки "добавить заметку"
       floatingActionButton: FloatingActionButton(
@@ -249,7 +248,7 @@ class _NotesPageState extends State<NotesPage> {
               ),
             ),
           ),
-          //отрисовка заметок Expanded - задаёт все доступное пространство со скролом
+          //отрисовка заметок Expanded - задаёт все доступное пространство со скроллом
           Expanded(
             child: Provider.of<toggleViewAVDVVD>(context)._isGrid
                 ? ListView.builder(
@@ -263,8 +262,6 @@ class _NotesPageState extends State<NotesPage> {
                             dragDismissible: true,
                             extentRatio: 0.2,
                             motion: const ScrollMotion(),
-
-                            //занять всю доступную ширину заметки
                             children: [
                               SlidableAction(
                                 flex: 1,
@@ -279,7 +276,6 @@ class _NotesPageState extends State<NotesPage> {
                                 icon: Icons.delete,
                               )
                             ],
-                            //дочерний виджет
                           ),
                           child: Container(
                             decoration: BoxDecoration(
@@ -320,7 +316,6 @@ class _NotesPageState extends State<NotesPage> {
                                   trailing: IconButton(
                                       onPressed: () => updateNote(note),
                                       icon: const Icon(Icons.edit)),
-                                  // добавления  иконок в стоку
                                 ),
                               ),
                             ),
@@ -369,14 +364,13 @@ class _NotesPageState extends State<NotesPage> {
                                     style: const TextStyle(
                                       fontSize: 17,
                                     ),
-                                    // добавления  иконок в стоку
                                   ),
                                 ),
                               ),
                             ),
                             Align(
                               alignment: Alignment.topRight,
-                              //нужен, если хочешь чтоб у showPopover был свой контектс
+                              //нужен, если хочешь чтоб у showPopover был свой контекст
                               //чтоб можно было передать showPopover в конкертный Widget
                               child: Builder(
                                 builder: (context) => IconButton(
@@ -388,7 +382,7 @@ class _NotesPageState extends State<NotesPage> {
                                     //то передай в context условный this.context ошибка исчезнет (фича)
                                     //но ты не сможешь передать showPopover Builder context который создал выше
                                     //как правило ошибка исчезнет если создать showPopover свой собственный context
-                                    //если это не зделать то родителем будет Container и ему он должем присвреться автоматически
+                                    //если это не сделать то родителем будет Container и ему он должен присваивается автоматически
                                     context: context,
                                     bodyBuilder: (context) =>
                                         BetaPageGridPopover(
@@ -412,7 +406,6 @@ class _NotesPageState extends State<NotesPage> {
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
-                                  // добавления  иконок в стоку
                                 ),
                               ),
                             ),
@@ -431,7 +424,7 @@ class _NotesPageState extends State<NotesPage> {
 // ignore: camel_case_types
 class toggleViewAVDVVD extends ChangeNotifier {
   bool _isGrid = false;
-
+  //отслеживание вид отображения заметки
   toggleViewAVDVVD(bool isPageNotes) {
     if (isPageNotes) {
       _isGrid = true;
@@ -440,6 +433,7 @@ class toggleViewAVDVVD extends ChangeNotifier {
     }
     notifyListeners();
   }
+  //функция для изменения вид отображения заметки
   void _toggleView() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (_isGrid == false) {

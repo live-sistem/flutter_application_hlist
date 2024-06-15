@@ -8,7 +8,7 @@ import 'pages/notes_page.dart';
 void main() async {
   //инициализация виджетов
   WidgetsFlutterBinding.ensureInitialized();
-  //инициализация баззыданных
+  //инициализация базы данных
   await NoteDatabase.initialize();
   //подгрузка данных из предпочней
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -34,7 +34,7 @@ void main() async {
   );
 }
 
-//главный класса MyApp наследуеться от StatelessWidget
+//главный класса MyApp наследуется от StatelessWidget
 class MyApp extends StatelessWidget {
   //объявление передаваемой переменной
   final bool isDark;
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     required this.isDark,
     required this.isPageNotes,
   });
-  //ключевого слова @override казывает на то, что функция также определена в классе-предке (не обязательна но желательна)
+  //ключевого слова @override указывает на то, что функция также определена в классе-предке (не обязательна но желательна)
   @override
   //Widget строительный блок
   //build абстрактный метод
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, //скрывает Banner дебаг
       home: const NotesPage(), //домашняя страница
       theme: Provider.of<ThemeProvider>(context)
-          .themeData, //передаем пораметры темы приложения через Provider
+          .themeData, //передаем параметры темы приложения через Provider
     );
   }
 }

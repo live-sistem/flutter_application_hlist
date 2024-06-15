@@ -20,13 +20,14 @@ class NoteDatabase extends ChangeNotifier {
   // CREATE IN DB
   Future<void> addNote(String textFromUser) async {
     //create a new note object
-
-    final pancakes = Note()
-      ..text = textFromUser
-      ..createdTime = DateTime.now();
-    // ignore: unused_local_variable
-    await isar.writeTxn(() => isar.notes.put(pancakes));
-    fetchNotes();
+    if (textFromUser != "") {
+      final pancakes = Note()
+        ..text = textFromUser
+        ..createdTime = DateTime.now();
+      // ignore: unused_local_variable
+      await isar.writeTxn(() => isar.notes.put(pancakes));
+      fetchNotes();
+    }
 
     //re-raed form db
   }
